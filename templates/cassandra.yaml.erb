@@ -1,4 +1,4 @@
-compaction_throughput_mb_per_sec: 16
+compaction_throughput_mb_per_sec: <%= @compaction_throughput_mb_per_sec %>
 row_cache_save_period: 0
 multithreaded_compaction: <%= @multithreaded_compaction %>
 cross_node_timeout: false
@@ -68,7 +68,6 @@ rpc_port: <%= @rpc_port %>
 commitlog_directory: <%= @commitlog_directory %>
 cas_contention_timeout_in_ms: 1000
 native_transport_max_frame_size_in_mb: 256
-listen_address: <%= @listen_address %>
 <% unless @broadcast_address.nil? || @broadcast_address.empty? %>
 broadcast_address: <%= @broadcast_address %>
 <% end %>

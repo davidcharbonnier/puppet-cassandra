@@ -40,10 +40,13 @@ class cassandra::config(
     $server_encryption_cipher_suites,
     $compaction_preheat_key_cachetrue,
     $batch_size_warn_threshold_in_kb,
+    $compaction_throughput_mb_per_sec,
     $hadoop_enabled,
     $solr_enabled,
     $spark_enabled,
     $cfs_enabled,
+    $delegated_snitch,
+    $back_pressure_threshold_per_core,
 ) {
     group { 'cassandra':
         ensure  => present,
@@ -56,9 +59,9 @@ class cassandra::config(
     }
 
     File {
-        owner   => 'cassandra',
-        group   => 'cassandra',
-        mode    => '0644',
+        owner   => 'root',
+        group   => 'opscenter-admin',
+        mode    => '0775',
         require => Class['cassandra::install'],
     }
 
@@ -75,11 +78,13 @@ class cassandra::config(
         ensure  => file,
         content => template("${module_name}/cassandra.yaml.erb"),
     }
+
+    file { "/etc/dse/dse.yaml":
+        ensure  => file,
+        content => template("${module_name}/dse.yaml.erb"),
+    }
     
     file { '/etc/default/dse':
-        owner   => 'root',
-        group   => 'opscenter-admin',
-        mode    => '0775',
         ensure  => file,
         content => template("${module_name}/dse.erb"),
     }

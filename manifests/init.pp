@@ -59,9 +59,12 @@ class cassandra(
     $server_encryption_cipher_suites  = $cassandra::params::server_encryption_cipher_suites,
     $compaction_preheat_key_cachetrue = $cassandra::params::compaction_preheat_key_cachetrue,
     $batch_size_warn_threshold_in_kb  = $cassandra::params::batch_size_warn_threshold_in_kb,
+    $compaction_throughput_mb_per_sec = $cassandra::params::compaction_throughput_mb_per_sec,
     $topology_default                 = $cassandra::params::topology_default,
     $topology                         = $cassandra::params::topology,
     $opscenter_ip                     = $cassandra::params::opscenter_ip,
+    $delegated_snitch                 = $cassandra::params::delegated_snitch,
+    $back_pressure_threshold_per_core = $cassandra::params::back_pressure_threshold_per_core,
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
@@ -197,10 +200,13 @@ class cassandra(
         server_encryption_cipher_suites  => $server_encryption_cipher_suites,
         compaction_preheat_key_cachetrue => $compaction_preheat_key_cachetrue,
         batch_size_warn_threshold_in_kb  => $batch_size_warn_threshold_in_kb,
+        compaction_throughput_mb_per_sec => $compaction_throughput_mb_per_sec,
         hadoop_enabled                   => $hadoop_enabled,
         solr_enabled                     => $solr_enabled,
         spark_enabled                    => $spark_enabled,
         cfs_enabled                      => $cfs_enabled,
+        delegated_snitch                 => $delegated_snitch,
+        back_pressure_threshold_per_core => $back_pressure_threshold_per_core,
     } 
     
     class { 'cassandra::topology':

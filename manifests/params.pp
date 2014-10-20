@@ -281,6 +281,11 @@ class cassandra::params {
         default => $::cassandra_batch_size_warn_threshold_in_kb,
     }
     
+    $compaction_throughput_mb_per_sec = $::cassandra_compaction_throughput_mb_per_sec ? {
+        undef   => '16',
+        default => $::cassandra_compaction_throughput_mb_per_sec,
+    }
+    
     $hadoop_enabled = $::cassandra_hadoop_enabled ? {
         undef   => '0',
         default => $::cassandra_hadoop_enabled,
@@ -313,6 +318,16 @@ class cassandra::params {
     
     $opscenter_ip = $::cassandra_opscenter_ip ? {
         undef   => '',
+        default => $::cassandra_opscenter_ip,
+    }
+    
+    $delegated_snitch = $::cassandra_delegated_snitch ? {
+        undef   => 'com.datastax.bdp.snitch.DseSimpleSnitch',
+        default => $::cassandra_delegated_snitch,
+    }
+    
+    $back_pressure_threshold_per_core = $::cassandra_opscenter_ip ? {
+        undef   => '500',
         default => $::cassandra_opscenter_ip,
     }
 }
