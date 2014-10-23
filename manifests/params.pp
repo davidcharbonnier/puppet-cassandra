@@ -12,6 +12,7 @@ class cassandra::params {
     $repo_baseurl = $::cassandra_repo_baseurl ? {
         undef   => $::osfamily ? {
             'RedHat' => "rpm.datastax.com/enterprise",
+            'Debian' => "debian.datastax.com/enterprise",
             default  => undef,
         },
         default => $::cassandra_repo_baseurl
@@ -43,7 +44,7 @@ class cassandra::params {
     }
 
     case $::osfamily {
-        'RedHat': {
+        'RedHat','debian': {
             $package_name = $::cassandra_package_name ? {
                 undef   => 'dse-full',
                 default => $::cassandra_package_name,
@@ -60,7 +61,7 @@ class cassandra::params {
             }
         }
         default: {
-            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily RedHat")
+            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily RedHat or Debian")
         }
     }
 
@@ -90,7 +91,7 @@ class cassandra::params {
     }
     
     $permissions_validity_in_ms = $::cassandra_permissions_validity_in_ms ? {
-        undef   => 5000,
+        undef   => 2000,
         default => $::cassandra_permissions_validity_in_ms,
     }
 
@@ -110,7 +111,7 @@ class cassandra::params {
     }
 
     $rpc_address = $::cassandra_rpc_address ? {
-        undef   => '0.0.0.0',
+        undef   => $::ipaddress,
         default => $::cassandra_rpc_address,
     }
 
@@ -212,7 +213,7 @@ class cassandra::params {
     }
 
     $start_native_transport = $::cassandra_start_native_transport ? {
-        undef   => 'false',
+        undef   => 'true',
         default => $::cassandra_start_native_transport,
     }
 
