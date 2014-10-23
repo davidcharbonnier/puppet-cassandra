@@ -44,7 +44,7 @@ class cassandra::params {
     }
 
     case $::osfamily {
-        'RedHat','Debian','Ubuntu': {
+        /^(RedHat|Debian|Ubuntu)$/: {
             $package_name = $::cassandra_package_name ? {
                 undef   => 'dse-full',
                 default => $::cassandra_package_name,
