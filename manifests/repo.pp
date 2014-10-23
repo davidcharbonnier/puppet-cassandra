@@ -8,7 +8,7 @@ class cassandra::repo (
     $enabled
 ){
     case $::osfamily {
-        'Debian': {
+        'Debian','Ubuntu': {
             class { 'cassandra::repo::debian':
                 repo_name  => $repo_name,
                 location   => $baseurl,

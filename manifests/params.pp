@@ -12,7 +12,7 @@ class cassandra::params {
     $repo_baseurl = $::cassandra_repo_baseurl ? {
         undef   => $::osfamily ? {
             'RedHat' => "rpm.datastax.com/enterprise",
-            'Debian' => "debian.datastax.com/enterprise",
+            /^(Debian|Ubuntu)$/ => "debian.datastax.com/enterprise",
             default  => undef,
         },
         default => $::cassandra_repo_baseurl
@@ -44,7 +44,7 @@ class cassandra::params {
     }
 
     case $::osfamily {
-        'RedHat','debian': {
+        'RedHat','Debian','Ubuntu': {
             $package_name = $::cassandra_package_name ? {
                 undef   => 'dse-full',
                 default => $::cassandra_package_name,
@@ -61,7 +61,7 @@ class cassandra::params {
             }
         }
         default: {
-            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily RedHat or Debian")
+            fail("Unsupported osfamily: ${::osfamily}, operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily RedHat and Debian/Ubuntu")
         }
     }
 
