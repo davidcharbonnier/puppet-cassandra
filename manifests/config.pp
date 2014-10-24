@@ -67,6 +67,8 @@ class cassandra::config(
 
     file { $data_file_directories:
         ensure  => directory,
+        owner   => 'cassandra',
+        group   => 'cassandra'
     }
 
     file { "${config_path}/cassandra-env.sh":
