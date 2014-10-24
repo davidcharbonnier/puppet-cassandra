@@ -4,6 +4,7 @@ class cassandra::agent(
   file { "/var/lib/datastax-agent/conf/address.yaml":
     ensure  => file,
     content => template("${module_name}/address.yaml.erb"),
+    require => Class['cassandra::install']
   }
   
   service { 'datastax-agent':
