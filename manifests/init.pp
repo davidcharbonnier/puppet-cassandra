@@ -1,4 +1,5 @@
 class cassandra(
+    $auto_booststrap                  = $cassandra::params::auto_booststrap,
     $package_name                     = $cassandra::params::package_name,
     $version                          = $cassandra::params::version,
     $service_name                     = $cassandra::params::service_name,
@@ -161,6 +162,7 @@ class cassandra(
     include cassandra::install
 
     class { 'cassandra::config':
+        auto_bootstrap                   => $auto_bootstrap,
         config_path                      => $config_path,
         max_heap_size                    => $max_heap_size,
         heap_newsize                     => $heap_newsize,

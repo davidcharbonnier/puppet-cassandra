@@ -1,4 +1,5 @@
 class cassandra::config(
+    $auto_bootstrap,
     $config_path,
     $max_heap_size,
     $heap_newsize,

@@ -1,4 +1,9 @@
 class cassandra::params {
+    $auto_bootstrap = $::cassandra_auto_boostrap ? {
+      undef     => true,
+      default   => $::cassandra_auto_booststrap
+    }
+  
     $include_repo = $::cassandra_include_repo ? {
         undef   => true,
         default => $::cassandra_include_repo
