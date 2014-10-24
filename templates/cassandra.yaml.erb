@@ -3,7 +3,7 @@ row_cache_save_period: 0
 multithreaded_compaction: <%= @multithreaded_compaction %>
 cross_node_timeout: false
 internode_compression: <%= @internode_compression %>
-storage_port: 7000
+storage_port: <%= @storage_port %>
 key_cache_save_period: 14400
 inter_dc_tcp_nodelay: false
 start_rpc: <%= @start_rpc %>
@@ -14,7 +14,7 @@ column_index_size_in_kb: 64
 disk_failure_policy: <%= @disk_failure_policy %>
 thrift_framed_transport_size_in_mb: 15
 authorizer: AllowAllAuthorizer
-read_request_timeout_in_ms: 10000
+read_request_timeout_in_ms: 5000
 hinted_handoff_enabled: 'true'
 dynamic_snitch_reset_interval_in_ms: 600000
 snapshot_before_compaction: <%= @snapshot_before_compaction %>
@@ -29,12 +29,12 @@ trickle_fsync: false
 rpc_keepalive: true
 max_hint_window_in_ms: 10800000
 commitlog_segment_size_in_mb: 32
-commit_failure_policy: stop_commit
+commit_failure_policy: stop
 native_transport_max_threads: 128
 cluster_name: <%= @cluster_name %>
 memtable_flush_queue_size: 4
 range_request_timeout_in_ms: 10000
-write_request_timeout_in_ms: 10000
+write_request_timeout_in_ms: 2000
 request_timeout_in_ms: 10000
 internode_authenticator: org.apache.cassandra.auth.AllowAllInternodeAuthenticator
 num_tokens: <%= @num_tokens %>
@@ -61,7 +61,7 @@ client_encryption_options:
   protocol: TLS
 partitioner: <%= @partitioner %>
 saved_caches_directory: <%= @saved_caches_directory %>
-ssl_storage_port: <%= @storage_port %>
+ssl_storage_port: 7001
 truncate_request_timeout_in_ms: 60000
 rpc_address: <%= @rpc_address %>
 rpc_port: <%= @rpc_port %>
