@@ -248,7 +248,7 @@ class cassandra::params {
     }
 
     $thread_stack_size = $::cassandra_thread_stack_size ? {
-        undef   => 180,
+        undef   => 256,
         default => $::cassandra_thread_stack_size,
     }
 
