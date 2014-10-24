@@ -5,7 +5,8 @@ class cassandra::repo (
     $release,
     $pin,
     $gpgcheck,
-    $enabled
+    $enabled,
+    $key_source
 ){
     case $::osfamily {
         'Debian','Ubuntu': {
@@ -15,6 +16,7 @@ class cassandra::repo (
                 repos      => $repos,
                 release    => $release,
                 pin        => $pin,
+                key_source => $key_source
             }
         }
         'RedHat': {

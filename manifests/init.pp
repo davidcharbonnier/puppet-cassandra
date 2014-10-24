@@ -13,6 +13,7 @@ class cassandra(
     $repo_enabled                     = $cassandra::params::repo_enabled,
     $repo_user                        = $cassandra::params::repo_user,
     $repo_password                    = $cassandra::params::repo_password,
+    $repo_key_source                  = $cassandra::params::repo_key_source,
     $max_heap_size                    = $cassandra::params::max_heap_size,
     $heap_newsize                     = $cassandra::params::heap_newsize,
     $jmx_port                         = $cassandra::params::jmx_port,
@@ -152,6 +153,7 @@ class cassandra(
             pin       => $repo_pin,
             gpgcheck  => $repo_gpgcheck,
             enabled   => $repo_enabled,
+            key_source => $repo_key_source
         }
         Class['cassandra::repo'] -> Class['cassandra::install']
     }

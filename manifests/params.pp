@@ -12,7 +12,7 @@ class cassandra::params {
     $repo_baseurl = $::cassandra_repo_baseurl ? {
         undef   => $::osfamily ? {
             'RedHat' => "rpm.datastax.com/enterprise",
-            /^(Debian|Ubuntu)$/ => "debian.datastax.com/enterprise",
+            'Debian' => "debian.datastax.com/enterprise",
             default  => undef,
         },
         default => $::cassandra_repo_baseurl
@@ -42,9 +42,14 @@ class cassandra::params {
         undef   => 1,
         default => $::cassandra_repo_enabled
     }
+    
+    $repo_key_source = $::cassandra_repo_key_source ? {
+        undef   => 'https://debian.datastax.com/debian/repo_key',
+        default => $::cassandra_repo_key_source
+    }
 
     case $::osfamily {
-        /^(RedHat|Debian|Ubuntu)$/: {
+        'RedHat','Debian': {
             $package_name = $::cassandra_package_name ? {
                 undef   => 'dse-full',
                 default => $::cassandra_package_name,
