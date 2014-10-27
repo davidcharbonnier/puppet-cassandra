@@ -1,5 +1,5 @@
 class cassandra(
-    $auto_booststrap                  = $cassandra::params::auto_booststrap,
+    $auto_bootstrap                   = $cassandra::params::auto_bootstrap,
     $package_name                     = $cassandra::params::package_name,
     $version                          = $cassandra::params::version,
     $service_name                     = $cassandra::params::service_name,
